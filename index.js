@@ -15,6 +15,7 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 
+
 app.use(express.json());
 
 //The signup path will become: http://localhost:3000/api/auth/signup
