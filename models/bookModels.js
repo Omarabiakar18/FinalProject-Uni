@@ -67,6 +67,10 @@ const bookSchema = new mongoose.Schema({
     required: true,
     validate: (v) => NonEmptyArray(v) && isGenere(v),
   },
+  bookQuantity: {
+    type: Number,
+    default: 1,
+  },
   emailAuthor: {
     type: String,
     trim: true,

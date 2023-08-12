@@ -14,6 +14,7 @@ exports.search = async (req, res) => {
     //2- Add a query to search for the book name in the database
     const bookNameEntered = req.body.bookName;
     let bookFound = "Book found.";
+    const bookNotFound = "This book is not found.";
 
     const search = new RegExp(`.*${bookNameEntered}.*`, "i");
     //console.log(search);
@@ -37,7 +38,7 @@ exports.search = async (req, res) => {
       ...addFilters,
     }).limit(13);
     if (books.length === 0) {
-      return res.status(404).json({ message: "This book is not found." });
+      return res.status(404).json({ message: bookNotFound });
     } else {
       return res.status(200).json({ message: bookFound, data: books });
     }
