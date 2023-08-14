@@ -62,14 +62,14 @@ const bookSchema = new mongoose.Schema({
     required: [true, "Enter the author's name!!"],
     trim: true,
   },
+  bookDescription: {
+    type: String,
+    maxlength: 500,
+  },
   bookGenre: {
     type: [String],
     required: true,
     validate: (v) => NonEmptyArray(v) && isGenere(v),
-  },
-  bookQuantity: {
-    type: Number,
-    default: 1,
   },
   emailAuthor: {
     type: String,
@@ -83,6 +83,11 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: [true, "Enter the book's price."],
   },
+});
+
+bookSchema.index({
+  bookName: "text",
+  bookAuthor: "text",
 });
 
 module.exports.default = mongoose.model("Book", bookSchema);

@@ -13,7 +13,7 @@ exports.addToCart = async (req, res) => {
     }
 
     // 2- Check if the book is already is valid
-    const book = await Book.find({ bookID: req.body.bookID });
+    const book = await Book.findOne({ bookID: req.body.bookID });
     if (!book) {
       return res.status(404).json({ message: "This book is not available." });
     }
@@ -26,13 +26,12 @@ exports.addToCart = async (req, res) => {
       length: 18,
       useLetters: false,
     });
-
-    console.log(user.userCart);
+    //console.log(user.userCart);
     let itemFound = null;
 
     for (let i = 0; i < user.userCart.length; i++) {
       const item = await Item.findById(user.userCart[i]);
-      if (item.bookInfo === book._id) {
+      if (item.bookInfo.equals(book._id)) {
         itemFound = item;
         break;
       }

@@ -11,20 +11,25 @@ exports.search = async (req, res) => {
       return res.status(404).json({ message: "This email doesn't exist" });
     }
 
+    if (req.body.query == undefined || typeof req.body.query != "string") {
+      return res.status(400).json({ message: "Query not found." });
+    }
+
     //2- Add a query to search for the book name in the database
-    const bookNameEntered = req.body.bookName;
+    const searchEntered = req.body.query.toString().trim();
     let bookFound = "Book found.";
     const bookNotFound = "This book is not found.";
 
-    const search = new RegExp(`.*${bookNameEntered}.*`, "i");
+    //const searchBook = new RegExp(`.*${searchEntered}.*`, "i");
+
     //console.log(search);
     //console.log(isGenere);
     const filters = req.body.filters;
     if (!Array.isArray(filters) || !isGenere(filters)) {
-      return res.status(404).json({ message: "Unknown Filter" });
+      return res.status(400).json({ message: "Unknown Filter" });
     }
 
-    if (bookNameEntered === "" && filters.length === 0) {
+    if (searchEntered === "" && filters.length === 0) {
       return res
         .status(404)
         .json({ message: "Enter a search query or filter." });
@@ -34,7 +39,7 @@ exports.search = async (req, res) => {
       filters.length === 0 ? {} : { bookGenre: { $in: filters } };
     //console.log(Book);
     const books = await Book.find({
-      bookName: { $regex: search },
+      $text: { $search: searchEntered },
       ...addFilters,
     }).limit(13);
     if (books.length === 0) {

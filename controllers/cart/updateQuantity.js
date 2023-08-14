@@ -9,9 +9,12 @@ exports.updateQuantity = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "This user doesn't exist" });
     }
-
+    await user.populate({ path: "userCart", populate: { path: "bookInfo" } });
+    console.log(user.userCart);
     // 2- Check if item is in the cart
-    const item = await Item.findOne({ bookInfo: req.body.bookID });
+    const item = user.userCart.find(
+      (item) => item.bookInfo.bookID === req.body.bookID
+    );
     if (!item) {
       return res.status(404).json({ message: "This book is not in the cart." });
     }
