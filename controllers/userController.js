@@ -59,8 +59,7 @@ exports.signUp = async (req, res) => {
 
     const newUser = await User.create({
       fullName: req.body.fullName,
-      email: req.body,
-      email,
+      email: req.body.email,
       password: req.body.password,
     });
 
@@ -132,12 +131,10 @@ exports.forgotPassword = async (req, res) => {
       text: msg,
     });
 
-    res
-      .status(200)
-      .json({
-        status: "success",
-        message: "The email you sent is successful.",
-      });
+    res.status(200).json({
+      status: "success",
+      message: "The email you sent is successful.",
+    });
   } catch (err) {
     console.log(err);
     user.passwordResetToken = undefined;
@@ -162,11 +159,9 @@ exports.resetPassword = async (req, res) => {
       passwordResetExpires: { $gt: Date.now() },
     });
     if (!user) {
-      return res
-        .status(400)
-        .json({
-          message: "The token is invalid, or expired. Please request a new one",
-        });
+      return res.status(400).json({
+        message: "The token is invalid, or expired. Please request a new one",
+      });
     }
     if (req.body.password.length < 8) {
       return res.status(400).json({ message: "Password length is too short" });
@@ -199,11 +194,9 @@ exports.protect = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
     }
     if (!token) {
-      return res
-        .status(401)
-        .json({
-          message: "You are not logged in. Please login to get access.",
-        });
+      return res.status(401).json({
+        message: "You are not logged in. Please login to get access.",
+      });
     }
 
     // 2: Verify the token

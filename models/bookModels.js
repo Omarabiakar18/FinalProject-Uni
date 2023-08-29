@@ -83,6 +83,17 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: [true, "Enter the book's price."],
   },
+  releaseDate: {
+    type: Date,
+    required: true,
+  },
+  reviews: [
+    {
+      reviewerName: String,
+      rating: Number,
+      comment: String,
+    },
+  ],
 });
 
 bookSchema.index({

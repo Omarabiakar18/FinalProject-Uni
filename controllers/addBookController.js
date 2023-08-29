@@ -24,6 +24,8 @@ exports.addBook = async (req, res) => {
 
     // 3- Create a new book
 
+    const releaseDate = new Date();
+
     const id1 = generateUniqueId({
       length: 12,
       useLetters: false,
@@ -39,6 +41,7 @@ exports.addBook = async (req, res) => {
       emailAuthor: req.body.emailAuthor,
       bookPrice: req.body.bookPrice,
       bookQuantity: req.body.bookQuantity,
+      releaseDate: releaseDate,
     });
 
     let msg = "Book added successfully!!";
