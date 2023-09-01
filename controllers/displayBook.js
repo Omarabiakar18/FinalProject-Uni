@@ -3,7 +3,7 @@ const User = require("../models/userModels");
 
 exports.displayBook = async (req, res) => {
   // 1- Check if the book is valid
-  const book = await Book.findOne({ bookID: req.body.bookID });
+  const book = await Book.findOne({ bookID: req.params.bookID });
   if (!book) {
     return res.status(404).json({ message: "This book is not available." });
   } else {

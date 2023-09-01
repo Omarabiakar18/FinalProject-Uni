@@ -26,6 +26,8 @@ const bookGenres = Object.freeze([
   "Comics",
   "Dystopian",
   "Music",
+  "Electropop",
+  "R&B",
 ]);
 exports.bookGenres = bookGenres;
 
@@ -51,6 +53,7 @@ const bookSchema = new mongoose.Schema({
   },
   bookCover: {
     type: String,
+    required: [true, "Enter a Book Cover!!"],
   },
   bookName: {
     type: String,

@@ -132,8 +132,8 @@ exports.forgotPassword = async (req, res) => {
     });
 
     res.status(200).json({
-      status: "success",
       message: "The email you sent is successful.",
+      data: true,
     });
   } catch (err) {
     console.log(err);
@@ -177,7 +177,9 @@ exports.resetPassword = async (req, res) => {
     user.passwordResetExpires = undefined;
     user.passwordChangedAt = Date.now();
     await user.save();
-    return res.status(200).json({ message: "Password changed successfully" });
+    return res
+      .status(200)
+      .json({ message: "Password changed successfully", data: true });
   } catch (err) {
     console.log(err);
   }

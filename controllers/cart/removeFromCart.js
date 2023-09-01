@@ -21,7 +21,9 @@ exports.removeFromCart = async (req, res) => {
     await User.updateOne({ _id: user._id }, { $pull: { userCart: item._id } });
     await Item.deleteOne({ bookInfo: bookToRemove });
 
-    return res.status(200).json({ message: "Item removed successfully" });
+    return res
+      .status(200)
+      .json({ message: "Item removed successfully", data: true });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "An error occurred" });

@@ -13,7 +13,7 @@ exports.addToCart = async (req, res) => {
     }
 
     // 2- Check if the book is valid
-    const book = await Book.findOne({ bookID: req.body.bookID });
+    const book = await Book.findOne({ bookID: req.params.bookID });
     if (!book) {
       return res.status(404).json({ message: "This book is not available." });
     }

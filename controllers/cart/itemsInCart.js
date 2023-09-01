@@ -19,7 +19,7 @@ exports.displayItemsInCart = async (req, res) => {
     const cartItems = user.userCart;
 
     if (cartItems.length === 0) {
-      return res.status(200).json({ message: cartEmpty });
+      return res.status(200).json({ message: cartEmpty, data: [] });
     }
 
     // 3- Cart contains items

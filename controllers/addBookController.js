@@ -49,9 +49,9 @@ exports.addBook = async (req, res) => {
     // Add the number of books uploaded to the user model
     user.booksUploaded += 1;
     await user.save();
-    res.status(201).json({ message: msg });
+    res.status(201).json({ message: msg, data: true });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error });
+    res.status(500).json({ message: error.message });
   }
 };
