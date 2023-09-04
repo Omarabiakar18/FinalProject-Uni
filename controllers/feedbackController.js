@@ -30,15 +30,13 @@ exports.feedback = async (req, res) => {
         text: msg,
       });
 
-      res
-        .status(200)
-        .json({
-          message:
-            "The email you sent is successful. Your feedback is recorded, Thank you for making this website better!!",
-          data: true,
-        });
+      res.status(200).json({
+        message:
+          "The email you sent is successful. Your feedback is recorded, Thank you for making this website better!!",
+        data: true,
+      });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       await user.save({ validateBeforeSave: false });
 
       res.status(500).json({

@@ -10,7 +10,7 @@ exports.updateQuantity = async (req, res) => {
       return res.status(404).json({ message: "This user doesn't exist" });
     }
     await user.populate({ path: "userCart", populate: { path: "bookInfo" } });
-    console.log(user.userCart);
+    //console.log(user.userCart);
     // 2- Check if item is in the cart
     const item = user.userCart.find(
       (item) => item.bookInfo.bookID === req.body.bookID
@@ -26,6 +26,6 @@ exports.updateQuantity = async (req, res) => {
     await item.save();
     return res.status(200).json({ message: itemUpdated, data: item });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };

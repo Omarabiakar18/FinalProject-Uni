@@ -51,7 +51,7 @@ exports.addBook = async (req, res) => {
     await user.save();
     res.status(201).json({ message: msg, data: true });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 };

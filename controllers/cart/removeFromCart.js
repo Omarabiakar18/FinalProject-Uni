@@ -11,8 +11,8 @@ exports.removeFromCart = async (req, res) => {
     }
 
     // 2- Check if item is in the cart
-    const bookToRemove = req.body.bookID; // Assuming you're sending bookID in the request
-    const item = await Item.findOne({ bookInfo: bookToRemove });
+    const bookToRemove = req.body.itemID;
+    const item = await Item.findById(bookToRemove);
     if (!item) {
       return res.status(404).json({ message: "This book is not in the cart." });
     }

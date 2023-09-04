@@ -95,7 +95,7 @@ exports.logIn = async (req, res) => {
     let msg = "Login Successfull.";
     createSendToken(user, 200, res, msg);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -136,7 +136,7 @@ exports.forgotPassword = async (req, res) => {
       data: true,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
@@ -181,7 +181,7 @@ exports.resetPassword = async (req, res) => {
       .status(200)
       .json({ message: "Password changed successfully", data: true });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 exports.protect = async (req, res, next) => {
@@ -233,6 +233,6 @@ exports.protect = async (req, res, next) => {
     req.user = currentUser;
     next();
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };

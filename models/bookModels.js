@@ -79,8 +79,8 @@ const bookSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
   },
-  booksSold: {
-    type: Number,
+  amountSold: {
+    type: String,
   },
   bookPrice: {
     type: String,

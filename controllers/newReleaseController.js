@@ -4,22 +4,18 @@ const User = require("../models/userModels");
 
 exports.getNewReleases = async (req, res) => {
   try {
-    // 1- Retrieve new releases from the database
-    const thresholdDate = new Date();
-    thresholdDate.setDate(thresholdDate.getDate() - 30);
-
-    // Query for books released after the threshold date
-    const newReleases = await Book.find({
-      releaseDate: { $gte: thresholdDate },
-    });
+    const limit = 25;
+    const recentBooks = await Book.find({})
+      .sort({ releaseDate: -1 })
+      .limit(limit);
 
     // 2- Send data to display
-    if (newReleases.length === 0) {
-      return res.status(400).json({ message: "No new releases." });
+    if (recentBooks.length === 0) {
+      return res.status(400).json({ message: "No recent releases." });
     } else {
       return res
         .status(200)
-        .json({ message: "New releases retrieved", data: newReleases });
+        .json({ message: "Recent books retrieved", data: recentBooks });
     }
   } catch (error) {
     console.error(error);

@@ -5,12 +5,6 @@ const { isGenere } = require("../models/bookModels");
 
 exports.search = async (req, res) => {
   try {
-    // 1- Make sure the user is valid
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      return res.status(404).json({ message: "This email doesn't exist" });
-    }
-
     if (req.body.query == undefined || typeof req.body.query != "string") {
       return res.status(400).json({ message: "Query not found." });
     }
@@ -48,6 +42,6 @@ exports.search = async (req, res) => {
       return res.status(200).json({ message: bookFound, data: books });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
