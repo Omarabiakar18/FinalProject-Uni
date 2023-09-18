@@ -29,11 +29,13 @@ exports.search = async (req, res) => {
         .json({ message: "Enter a search query or filter." });
     }
 
+    const addText =
+      searchEntered.length === 0 ? {} : { $text: { $search: searchEntered } };
     const addFilters =
       filters.length === 0 ? {} : { bookGenre: { $in: filters } };
-    //console.log(Book);
+
     const books = await Book.find({
-      $text: { $search: searchEntered },
+      ...addText,
       ...addFilters,
     }).limit(13);
     if (books.length === 0) {

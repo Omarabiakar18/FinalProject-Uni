@@ -1,35 +1,47 @@
 const mongoose = require("mongoose");
 const bookGenres = Object.freeze([
-  "Fiction",
-  "Science Fiction",
-  "Fantasy",
-  "Mystery",
-  "Thriller",
-  "Horror",
-  "Romance",
-  "Historical Fiction",
   "Adventure",
-  "Young Adult",
-  "Children's",
-  "Non-fiction",
-  "Biography",
   "Autobiography",
-  "Self-help",
-  "Travel",
+  "Adult",
+  "Biography",
+  "Children's",
+  "Comics",
+  "Contemporary",
   "Cooking",
-  "Science",
+  "Crime",
+  "Dark",
+  "Dystopian",
+  "Electropop",
+  "Fantasy",
+  "Fiction",
+  "Graphic Novel",
   "History",
+  "Horror",
+  "Music",
+  "Mystery",
+  "Non-fiction",
   "Philosophy",
   "Poetry",
   "Religion",
-  "Graphic Novel",
-  "Comics",
-  "Dystopian",
-  "Music",
-  "Electropop",
+  "Romance",
   "R&B",
+  "Science",
+  "Science Fiction",
+  "Self-help",
+  "Thriller",
+  "Travel",
+  "Young Adult",
 ]);
+
 exports.bookGenres = bookGenres;
+
+const bookFormat = Object.freeze([
+  "Paperback",
+  "Hard Cover",
+  "AudioBook",
+  "e-Book",
+]);
+exports.bookFormat = bookFormat;
 
 function NonEmptyArray(v) {
   return Array.isArray(v) && v.length > 0;
@@ -44,6 +56,11 @@ function isGenere(v) {
   return true;
 }
 exports.isGenere = isGenere;
+
+function isFormat(f) {
+  return bookFormat.includes(f);
+}
+exports.isFormat = isFormat;
 
 const bookSchema = new mongoose.Schema({
   bookID: {
@@ -74,6 +91,23 @@ const bookSchema = new mongoose.Schema({
     required: true,
     validate: (v) => NonEmptyArray(v) && isGenere(v),
   },
+  bookFormat: {
+    type: [
+      {
+        format: {
+          type: String,
+          validate: (f) => isFormat(f),
+          required: true,
+        },
+        price: {
+          type: Number,
+          validate: (f) => f > 0,
+          required: true,
+        },
+      },
+    ],
+    validate: (v) => NonEmptyArray(v),
+  },
   emailAuthor: {
     type: String,
     trim: true,
@@ -81,10 +115,6 @@ const bookSchema = new mongoose.Schema({
   },
   amountSold: {
     type: String,
-  },
-  bookPrice: {
-    type: String,
-    required: [true, "Enter the book's price."],
   },
   releaseDate: {
     type: Date,

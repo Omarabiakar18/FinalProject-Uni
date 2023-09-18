@@ -28,16 +28,20 @@ exports.addToCart = async (req, res) => {
     });
     //console.log(user.userCart);
     let itemFound = null;
+    let formatFound = null;
+    let bookFormat = req.body.bookFormat;
 
     for (let i = 0; i < user.userCart.length; i++) {
       const item = await Item.findById(user.userCart[i]);
-      if (item.bookInfo.equals(book._id)) {
+      if (item && item.bookInfo.equals(book._id)) {
         itemFound = item;
-        break;
+        if (item.formatBook === bookFormat) {
+          formatFound = item;
+          break;
+        }
       }
     }
-
-    if (itemFound) {
+    if (itemFound && formatFound) {
       itemFound.bookQuantity += req.body.bookQuantity;
       await itemFound.save();
       return res.status(200).json({ message: itemAdded, data: itemFound });
@@ -47,6 +51,7 @@ exports.addToCart = async (req, res) => {
           itemID: id1,
           bookInfo: book._id,
           bookQuantity: req.body.bookQuantity,
+          formatBook: req.body.formatBook,
         });
         user.userCart.push(newItem._id);
         await user.save();

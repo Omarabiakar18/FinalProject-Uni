@@ -38,13 +38,16 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    accountType: {
-      type: String,
-    },
+    wishList: [
+      {
+        type: ObjectId,
+        ref: "Book",
+      },
+    ],
     userCart: [
       {
         type: ObjectId,
-        ref: "Item",
+        ref: "Book",
       },
     ],
     passwordChangedAt: Date,

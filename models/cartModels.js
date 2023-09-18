@@ -11,6 +11,10 @@ const cartSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
+  formatBook: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Item", cartSchema);

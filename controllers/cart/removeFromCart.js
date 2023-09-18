@@ -1,6 +1,5 @@
 const User = require("../../models/userModels.js");
 const Item = require("../../models/cartModels");
-const Book = require("../../models/bookModels").default;
 
 exports.removeFromCart = async (req, res) => {
   try {

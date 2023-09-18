@@ -6,7 +6,7 @@ const cors = require("cors");
 //Routes
 const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
-const { bookGenres } = require("./models/bookModels");
+const { bookGenres, bookFormat } = require("./models/bookModels");
 
 // Connect to our DB
 DB();
@@ -16,6 +16,7 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.get("/bookGenres", (req, res) => res.json(bookGenres));
+app.get("/bookFormat", (req, res) => res.json(bookFormat));
 
 //The signup path will become: http://localhost:3000/api/auth/signup
 

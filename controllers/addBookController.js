@@ -39,9 +39,9 @@ exports.addBook = async (req, res) => {
       bookGenre: req.body.bookGenre,
       bookDescription: req.body.bookDescription,
       emailAuthor: req.body.emailAuthor,
-      bookPrice: req.body.bookPrice,
       bookQuantity: req.body.bookQuantity,
       releaseDate: releaseDate,
+      bookFormat: req.body.bookFormat,
     });
 
     let msg = "Book added successfully!!";
