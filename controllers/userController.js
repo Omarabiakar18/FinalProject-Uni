@@ -117,7 +117,7 @@ exports.forgotPassword = async (req, res) => {
   //3- Send the token via email
   // http://127.0.0.1:3000/api/auth/resetPassword/jsrt1js8rh5s19sn1gnfn651f85m41f5j5rj95jtjgm
 
-  //3.1- Ceate this URL
+  //3.1- Create this URL
   const url = `${req.protocol}://${req.get(
     "host"
   )}/api/auth/resetPassword/${resetToken}`;

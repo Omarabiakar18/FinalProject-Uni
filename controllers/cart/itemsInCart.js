@@ -23,21 +23,23 @@ exports.displayItemsInCart = async (req, res) => {
     if (cartItems.length === 0) {
       return res
         .status(200)
-        .json({ message: cartEmpty, data: [], totalAmount: 0 }); // Add totalAmount property with 0 for empty cart
+        .json({ message: cartEmpty, data: [], totalAmount: -1 });
     }
 
     // 3- Cart contains items
-    // Calculate the total amount of money for items in the cart
+
     const totalAmount = cartItems.reduce((total, item) => {
-      return total + item.bookInfo.price * item.quantity;
+      const formatPrice = item.bookInfo.bookFormat.find(
+        (bF) => bF.format === item.formatBook
+      ).price;
+      return total + formatPrice * item.bookQuantity;
     }, 0);
 
     return res
       .status(200)
-      .json({ message: cart, data: cartItems, totalAmount }); // Include totalAmount in the response
+      .json({ message: cart, data: cartItems, totalAmount });
   } catch (error) {
     console.error(error);
-
     return res.status(500).json({ message: "An error occurred." });
   }
 };

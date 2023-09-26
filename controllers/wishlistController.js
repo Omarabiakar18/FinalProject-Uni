@@ -46,12 +46,7 @@ exports.wishListDisplay = async (req, res) => {
     }).populate("wishList");
 
     // 3- Extract the populated wishList with book info
-    const populatedWishList = populatedUser.wishList.map((item) => ({
-      bookID: item.bookID,
-      bookCover: item.bookCover,
-      bookName: item.bookName,
-      bookAuthor: item.bookAuthor,
-    }));
+    const populatedWishList = populatedUser.wishList.map((item) => item);
 
     return res.status(200).json({
       message: "Successfully Retrieved Wish List",

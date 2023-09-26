@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema(
     userCart: [
       {
         type: ObjectId,
-        ref: "Book",
+        ref: "Item",
       },
     ],
     passwordChangedAt: Date,

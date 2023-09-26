@@ -13,6 +13,7 @@ const reviewBook = require("../controllers/reviewBookController");
 const popularnow = require("../controllers/popularNowController");
 const checkout = require("../controllers/checkoutController");
 const wishList = require("../controllers/wishlistController");
+const myLibrary = require("../controllers/myLibraryController");
 
 router.get("/displaybook/:bookID", displayBook.displayBook);
 router.post("/userFeedback", feedbackController.feedback);
@@ -21,6 +22,7 @@ router.post("/searchBook", searchController.search);
 router.post("/addToCart/:bookID", addToCart.addToCart);
 router.post("/itemsInCart", itemsInCart.displayItemsInCart);
 router.post("/removeFromCart", removeFromCart.removeFromCart);
+router.post("/removeAllCart", removeFromCart.removeAllCart);
 router.post("/updateQuantity", updateQuantity.updateQuantity);
 router.get("/newRelease", newRelease.getNewReleases);
 router.post("/reviewBook", reviewBook.reviewBook);
@@ -29,5 +31,7 @@ router.post("/checkout", checkout.checkout);
 router.post("/wishList", wishList.wishList);
 router.post("/displayWishlist", wishList.wishListDisplay);
 router.post("/removeWishlist", wishList.removeFromWishList);
+router.post("/addToLibrary", myLibrary.AddMyLibrary);
+router.post("/displayLibrary", myLibrary.MyLibraryDisplay);
 
 module.exports = router;
