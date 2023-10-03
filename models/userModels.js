@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
     userLibrary: [
       {
         type: ObjectId,
-        ref: "Book",
+        ref: "Library",
       },
     ],
     booksUploaded: {

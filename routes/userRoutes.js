@@ -14,6 +14,7 @@ const popularnow = require("../controllers/popularNowController");
 const checkout = require("../controllers/checkoutController");
 const wishList = require("../controllers/wishlistController");
 const myLibrary = require("../controllers/myLibraryController");
+const displayLibraryBook = require("../controllers/displayBook");
 
 router.get("/displaybook/:bookID", displayBook.displayBook);
 router.post("/userFeedback", feedbackController.feedback);
@@ -33,5 +34,6 @@ router.post("/displayWishlist", wishList.wishListDisplay);
 router.post("/removeWishlist", wishList.removeFromWishList);
 router.post("/addToLibrary", myLibrary.AddMyLibrary);
 router.post("/displayLibrary", myLibrary.MyLibraryDisplay);
+router.get("/displayLibraryBook/:_id", displayBook.displayLibraryBook);
 
 module.exports = router;
